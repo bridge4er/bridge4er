@@ -3,18 +3,469 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aptitude Practice</title>
+    <title>Civil Engineering MCQ Practice</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1a3c8b 0%, #2a5caa 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .category-selector {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .category-selector h3 {
+            color: #1a3c8b;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .category-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+        
+        .category-btn {
+            background: #eef2ff;
+            border: 2px solid #d0d9f0;
+            border-radius: 8px;
+            padding: 0.7rem 1.2rem;
+            font-weight: 600;
+            color: #1a3c8b;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .category-btn:hover {
+            background: #d0d9f0;
+            transform: translateY(-2px);
+        }
+        
+        .category-btn.active {
+            background: #1a3c8b;
+            color: white;
+            border-color: #1a3c8b;
+        }
+        
+        .search-filter {
+            display: flex;
+            gap: 15px;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .search-box {
+            flex-grow: 1;
+            position: relative;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 2.5rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+        }
+        
+        .filter-select {
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: white;
+            min-width: 180px;
+        }
+        
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 1rem;
+        }
+        
+        .stat-item {
+            background: white;
+            border-radius: 10px;
+            padding: 1.2rem;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #1a3c8b;
+            margin-bottom: 0.3rem;
+        }
+        
+        .stat-label {
+            font-size: 0.95rem;
+            color: #666;
+            font-weight: 600;
+        }
+        
+        .quiz-area {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 1.2rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .question-counter {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1a3c8b;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: #eef2ff;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #1a3c8b 0%, #2a5caa 100%);
+            width: 20%;
+            transition: width 0.5s ease;
+        }
+        
+        .question-box {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .question {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #222;
+            line-height: 1.5;
+        }
+        
+        .options {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 12px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .option {
+            padding: 1.2rem 1.5rem;
+            background: #f8f9ff;
+            border: 2px solid #e0e6ff;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .option:hover {
+            background: #eef2ff;
+            transform: translateY(-2px);
+        }
+        
+        .option.selected {
+            background: #d0e0ff;
+            border-color: #1a3c8b;
+            color: #1a3c8b;
+        }
+        
+        .option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+        
+        .option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        
+        .option-letter {
+            font-weight: 700;
+            font-size: 1.1rem;
+            min-width: 24px;
+        }
+        
+        .explanation {
+            margin-top: 1.5rem;
+            padding: 1.2rem;
+            background: #f8f9ff;
+            border-left: 4px solid #1a3c8b;
+            border-radius: 0 8px 8px 0;
+            display: none;
+        }
+        
+        .explanation.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .explanation strong {
+            color: #1a3c8b;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 1rem;
+        }
+        
+        .btn {
+            padding: 0.9rem 1.8rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: #1a3c8b;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #15316e;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(26, 60, 139, 0.2);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #545b62;
+            transform: translateY(-3px);
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #218838;
+            transform: translateY(-3px);
+        }
+        
+        .questions-summary {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            display: none;
+        }
+        
+        .questions-summary.show {
+            display: block;
+        }
+        
+        .summary-title {
+            color: #1a3c8b;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+        
+        .summary-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 1rem;
+            background: #f8f9ff;
+            border-radius: 8px;
+        }
+        
+        .summary-item {
+            padding: 0.8rem;
+            background: white;
+            border-radius: 6px;
+            border-left: 4px solid #ddd;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .summary-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .summary-item.correct {
+            border-left-color: #28a745;
+        }
+        
+        .summary-item.incorrect {
+            border-left-color: #dc3545;
+        }
+        
+        .summary-item.unanswered {
+            border-left-color: #ffc107;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            background: #1a3c8b;
+            color: white;
+            font-size: 1rem;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .options {
+                grid-template-columns: 1fr;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .search-filter {
+                flex-direction: column;
+            }
+            
+            .filter-select {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1><i class="fas fa-brain"></i> IQ TEST MCQs </h1>
-        <p>Practice Aptitude Questions and Improve Your Skills</p>
+        <h1><i class="fas fa-hard-hat"></i> Civil Engineering MCQs</h1>
+        <p>Practice 1000+ questions across various civil engineering categories</p>
     </header>
 
-    <main>
-        <h2>Aptitude Practice Questions</h2>
+    <div class="container">
+        <div class="category-selector">
+            <h3><i class="fas fa-filter"></i> Select Category</h3>
+            <div class="category-buttons" id="categoryButtons">
+                <!-- Categories will be populated by JavaScript -->
+            </div>
+            
+            <div class="search-filter">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search questions...">
+                </div>
+                <select class="filter-select" id="difficultyFilter">
+                    <option value="all">All Difficulty Levels</option>
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+                <select class="filter-select" id="questionCount">
+                    <option value="10">10 Questions</option>
+                    <option value="20">20 Questions</option>
+                    <option value="30">30 Questions</option>
+                    <option value="50">50 Questions</option>
+                    <option value="all">All Questions</option>
+                </select>
+            </div>
+        </div>
         
         <div class="stats-bar">
             <div class="stat-item">
@@ -35,106 +486,762 @@
             </div>
         </div>
         
-        <div class="question-counter">
-            Question <span id="current-question">1</span> of <span id="total-questions">5</span>
+        <div class="quiz-area">
+            <div class="quiz-header">
+                <div>
+                    <div class="question-counter">
+                        Question <span id="current-question">1</span> of <span id="total-questions">0</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn btn-secondary" id="summaryBtn">
+                        <i class="fas fa-list"></i> Question Summary
+                    </button>
+                </div>
+            </div>
+            
+            <div class="question-box">
+                <p class="question" id="questionText">
+                    Select a category to start the quiz
+                </p>
+                
+                <ul class="options" id="optionsContainer">
+                    <!-- Options will be populated by JavaScript -->
+                </ul>
+                
+                <p class="explanation" id="explanationText">
+                    <strong>Explanation:</strong> Explanation will appear here after checking answer.
+                </p>
+            </div>
+            
+            <div class="controls">
+                <button class="btn btn-secondary" id="prevBtn">
+                    <i class="fas fa-arrow-left"></i> Previous
+                </button>
+                <button class="btn btn-success" id="checkBtn">
+                    <i class="fas fa-check-circle"></i> Check Answer
+                </button>
+                <button class="btn btn-primary" id="nextBtn">
+                    Next <i class="fas fa-arrow-right"></i>
+                </button>
+                <button class="btn btn-secondary" id="resetBtn">
+                    <i class="fas fa-redo"></i> Reset Quiz
+                </button>
+            </div>
+            
+            <div class="questions-summary" id="questionsSummary">
+                <h3 class="summary-title">Question Summary</h3>
+                <div class="summary-list" id="summaryList">
+                    <!-- Summary will be populated by JavaScript -->
+                </div>
+            </div>
         </div>
-        
-        <div class="question-box" id="question1">
-            <p class="question">
-                1. Who is Sudip Bhusal?
-            </p>
-            
-            <ul class="options" id="options1">
-                <li data-option="A" data-correct="false">A. Hero </li>
-                <li data-option="B" data-correct="false">B. Villian </li>
-                <li data-option="C" data-correct="true">C. Engineer </li>
-                <li data-option="D" data-correct="false">D. Artist </li>
-            </ul>
-            
-            <p class="explanation" id="explanation1">
-                <strong>Explanation:</strong> He is the Engineer of BBDMP.
-            </p>
-        </div>
-        
-        <div class="question-box" id="question2" style="display:none;">
-            <p class="question">
-                2. What is 20% of 200?
-            </p>
-            
-            <ul class="options" id="options2">
-                <li data-option="A" data-correct="false">A. 20</li>
-                <li data-option="B" data-correct="true">B. 40</li>
-                <li data-option="C" data-correct="false">C. 60</li>
-                <li data-option="D" data-correct="false">D. 80</li>
-            </ul>
-            
-            <p class="explanation" id="explanation2">
-                <strong>Explanation:</strong> 20% of 200 = (20/100) × 200 = 40. To calculate percentage, multiply the number by the percentage divided by 100.
-            </p>
-        </div>
-        
-        <div class="question-box" id="question3" style="display:none;">
-            <p class="question">
-                3. If a train travels 300 km in 5 hours, what is its average speed?
-            </p>
-            
-            <ul class="options" id="options3">
-                <li data-option="A" data-correct="false">A. 50 km/h</li>
-                <li data-option="B" data-correct="true">B. 60 km/h</li>
-                <li data-option="C" data-correct="false">C. 70 km/h</li>
-                <li data-option="D" data-correct="false">D. 80 km/h</li>
-            </ul>
-            
-            <p class="explanation" id="explanation3">
-                <strong>Explanation:</strong> Average speed = Total distance ÷ Total time = 300 km ÷ 5 hours = 60 km/h.
-            </p>
-        </div>
-        
-        <div class="question-box" id="question4" style="display:none;">
-            <p class="question">
-                4. A rectangle has length 8 cm and width 5 cm. What is its area?
-            </p>
-            
-            <ul class="options" id="options4">
-                <li data-option="A" data-correct="false">A. 13 cm²</li>
-                <li data-option="B" data-correct="false">B. 26 cm²</li>
-                <li data-option="C" data-correct="true">C. 40 cm²</li>
-                <li data-option="D" data-correct="false">D. 45 cm²</li>
-            </ul>
-            
-            <p class="explanation" id="explanation4">
-                <strong>Explanation:</strong> Area of rectangle = Length × Width = 8 cm × 5 cm = 40 cm².
-            </p>
-        </div>
-        
-        <div class="question-box" id="question5" style="display:none;">
-            <p class="question">
-                5. What is the square root of 144?
-            </p>
-            
-            <ul class="options" id="options5">
-                <li data-option="A" data-correct="false">A. 10</li>
-                <li data-option="B" data-correct="false">B. 11</li>
-                <li data-option="C" data-correct="true">C. 12</li>
-                <li data-option="D" data-correct="false">D. 13</li>
-            </ul>
-            
-            <p class="explanation" id="explanation5">
-                <strong>Explanation:</strong> √144 = 12 because 12 × 12 = 144.
-            </p>
-        </div>
-        
-        <div class="controls">
-            <button id="resetBtn"><i class="fas fa-redo"></i> Reset Quiz</button>
-            <button id="checkBtn"><i class="fas fa-check-circle"></i> Check Answer</button>
-            <button id="nextBtn"><i class="fas fa-arrow-right"></i> Next Question</button>
-        </div>
-    </main>
+    </div>
     
     <footer>
-        <p> Keep Updating </p>
+        <p>Civil Engineering MCQ Practice Platform | Keep Updating Your Knowledge</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // Civil Engineering MCQ Database
+        const civilEngineeringMCQs = {
+            categories: [
+                "Structural Engineering",
+                "Geotechnical Engineering",
+                "Transportation Engineering",
+                "Environmental Engineering",
+                "Water Resources Engineering",
+                "Construction Management",
+                "Surveying",
+                "Concrete Technology",
+                "Steel Structures",
+                "Fluid Mechanics",
+                "Soil Mechanics",
+                "Highway Engineering",
+                "Irrigation Engineering",
+                "Engineering Mechanics",
+                "Building Materials"
+            ],
+            
+            questions: [
+                // Structural Engineering Questions
+                {
+                    id: 1,
+                    category: "Structural Engineering",
+                    question: "What is the primary purpose of reinforcement in concrete?",
+                    options: [
+                        "To increase compressive strength",
+                        "To resist tensile forces",
+                        "To reduce weight",
+                        "To improve appearance"
+                    ],
+                    correctAnswer: 1,
+                    explanation: "Concrete is strong in compression but weak in tension. Reinforcement (usually steel bars) is added to resist tensile forces.",
+                    difficulty: "easy"
+                },
+                {
+                    id: 2,
+                    category: "Structural Engineering",
+                    question: "Which type of beam is fixed at both ends?",
+                    options: [
+                        "Simply supported beam",
+                        "Cantilever beam",
+                        "Fixed beam",
+                        "Continuous beam"
+                    ],
+                    correctAnswer: 2,
+                    explanation: "A fixed beam is rigidly connected at both ends, restricting rotation and translation.",
+                    difficulty: "medium"
+                },
+                {
+                    id: 3,
+                    category: "Structural Engineering",
+                    question: "What does the term 'slump test' measure in concrete?",
+                    options: [
+                        "Compressive strength",
+                        "Workability",
+                        "Durability",
+                        "Setting time"
+                    ],
+                    correctAnswer: 1,
+                    explanation: "The slump test is a measure of the consistency and workability of fresh concrete.",
+                    difficulty: "easy"
+                },
+                
+                // Geotechnical Engineering Questions
+                {
+                    id: 4,
+                    category: "Geotechnical Engineering",
+                    question: "Which soil type has the smallest particle size?",
+                    options: [
+                        "Gravel",
+                        "Sand",
+                        "Silt",
+                        "Clay"
+                    ],
+                    correctAnswer: 3,
+                    explanation: "Clay particles are the smallest, typically less than 0.002 mm in diameter.",
+                    difficulty: "easy"
+                },
+                {
+                    id: 5,
+                    category: "Geotechnical Engineering",
+                    question: "What is the purpose of a standard penetration test (SPT)?",
+                    options: [
+                        "To determine soil bearing capacity",
+                        "To measure soil compaction",
+                        "To identify soil type and consistency",
+                        "All of the above"
+                    ],
+                    correctAnswer: 3,
+                    explanation: "SPT is used to determine geotechnical engineering properties of soils, including type, consistency, and bearing capacity.",
+                    difficulty: "medium"
+                },
+                
+                // Transportation Engineering Questions
+                {
+                    id: 6,
+                    category: "Transportation Engineering",
+                    question: "What is the minimum superelevation provided on horizontal curves in highways?",
+                    options: [
+                        "2%",
+                        "4%",
+                        "7%",
+                        "10%"
+                    ],
+                    correctAnswer: 0,
+                    explanation: "A minimum superelevation of 2% is provided on horizontal curves to counteract centrifugal force.",
+                    difficulty: "hard"
+                },
+                {
+                    id: 7,
+                    category: "Transportation Engineering",
+                    question: "Which traffic survey is conducted to determine the proportion of vehicles moving in each direction?",
+                    options: [
+                        "Speed and delay study",
+                        "Origin-Destination study",
+                        "Traffic volume study",
+                        "Directional distribution study"
+                    ],
+                    correctAnswer: 3,
+                    explanation: "Directional distribution study determines the proportion of traffic moving in each direction on a road.",
+                    difficulty: "medium"
+                },
+                
+                // Environmental Engineering Questions
+                {
+                    id: 8,
+                    category: "Environmental Engineering",
+                    question: "What is the most common method for disinfection of drinking water?",
+                    options: [
+                        "Boiling",
+                        "Chlorination",
+                        "UV radiation",
+                        "Ozonation"
+                    ],
+                    correctAnswer: 1,
+                    explanation: "Chlorination is the most common method due to its effectiveness, residual protection, and cost-efficiency.",
+                    difficulty: "easy"
+                },
+                {
+                    id: 9,
+                    category: "Environmental Engineering",
+                    question: "Which parameter measures the amount of oxygen required by bacteria to decompose organic matter in water?",
+                    options: [
+                        "DO",
+                        "BOD",
+                        "COD",
+                        "TSS"
+                    ],
+                    correctAnswer: 1,
+                    explanation: "Biochemical Oxygen Demand (BOD) measures the amount of oxygen consumed by microorganisms while decomposing organic matter.",
+                    difficulty: "medium"
+                },
+                
+                // Water Resources Engineering Questions
+                {
+                    id: 10,
+                    category: "Water Resources Engineering",
+                    question: "Which type of dam is constructed using compacted earth?",
+                    options: [
+                        "Gravity dam",
+                        "Arch dam",
+                        "Embankment dam",
+                        "Buttress dam"
+                    ],
+                    correctAnswer: 2,
+                    explanation: "Embankment dams are constructed using compacted earth, rock, or both.",
+                    difficulty: "easy"
+                },
+                
+                // More questions can be added here to reach 1000+
+                // For demonstration, we'll add a few more
+                {
+                    id: 11,
+                    category: "Concrete Technology",
+                    question: "What is the typical water-cement ratio for normal concrete?",
+                    options: [
+                        "0.3-0.4",
+                        "0.4-0.6",
+                        "0.6-0.8",
+                        "0.8-1.0"
+                    ],
+                    correctAnswer: 1,
+                    explanation: "The typical water-cement ratio for normal concrete ranges from 0.4 to 0.6.",
+                    difficulty: "medium"
+                },
+                {
+                    id: 12,
+                    category: "Steel Structures",
+                    question: "Which type of steel connection allows rotation?",
+                    options: [
+                        "Rigid connection",
+                        "Pinned connection",
+                        "Fixed connection",
+                        "Moment-resisting connection"
+                    ],
+                    correctAnswer: 1,
+                    explanation: "Pinned connections allow rotation but resist translation in any direction.",
+                    difficulty: "medium"
+                },
+                {
+                    id: 13,
+                    category: "Fluid Mechanics",
+                    question: "What is the hydraulic gradient line (HGL) in pipe flow?",
+                    options: [
+                        "Line joining points of atmospheric pressure",
+                        "Line joining points of piezometric head",
+                        "Line joining points of velocity head",
+                        "Line joining points of total energy"
+                    ],
+                    correctAnswer: 1,
+                    explanation: "The hydraulic gradient line represents the piezometric head (pressure head + elevation head).",
+                    difficulty: "hard"
+                },
+                {
+                    id: 14,
+                    category: "Surveying",
+                    question: "Which surveying method uses the principle of triangulation?",
+                    options: [
+                        "Chain surveying",
+                        "Compass surveying",
+                        "Theodolite surveying",
+                        "Plane table surveying"
+                    ],
+                    correctAnswer: 2,
+                    explanation: "Theodolite surveying uses triangulation to establish horizontal control points.",
+                    difficulty: "medium"
+                },
+                {
+                    id: 15,
+                    category: "Building Materials",
+                    question: "Which property of bricks is tested by immersing them in water for 24 hours?",
+                    options: [
+                        "Compressive strength",
+                        "Water absorption",
+                        "Efflorescence",
+                        "Soundness"
+                    ],
+                    correctAnswer: 1,
+                    explanation: "Water absorption test determines the porosity of bricks by measuring water absorbed after 24-hour immersion.",
+                    difficulty: "easy"
+                }
+            ]
+        };
+
+        // Quiz State
+        let currentState = {
+            currentQuestionIndex: 0,
+            score: 0,
+            attempted: 0,
+            correct: 0,
+            incorrect: 0,
+            selectedCategory: "All Categories",
+            selectedOptions: {}, // Store user selections by question id
+            checkedAnswers: {}, // Store which questions have been checked
+            filteredQuestions: [],
+            isQuizActive: false
+        };
+
+        // DOM Elements
+        const categoryButtons = document.getElementById('categoryButtons');
+        const questionText = document.getElementById('questionText');
+        const optionsContainer = document.getElementById('optionsContainer');
+        const explanationText = document.getElementById('explanationText');
+        const currentQuestionEl = document.getElementById('current-question');
+        const totalQuestionsEl = document.getElementById('total-questions');
+        const progressFill = document.getElementById('progressFill');
+        const scoreEl = document.getElementById('score');
+        const attemptedEl = document.getElementById('attempted');
+        const correctEl = document.getElementById('correct');
+        const incorrectEl = document.getElementById('incorrect');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const checkBtn = document.getElementById('checkBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const summaryBtn = document.getElementById('summaryBtn');
+        const questionsSummary = document.getElementById('questionsSummary');
+        const summaryList = document.getElementById('summaryList');
+        const searchInput = document.getElementById('searchInput');
+        const difficultyFilter = document.getElementById('difficultyFilter');
+        const questionCount = document.getElementById('questionCount');
+
+        // Initialize the application
+        function init() {
+            // Create category buttons
+            createCategoryButtons();
+            
+            // Filter questions initially (show all)
+            filterQuestions();
+            
+            // Set up event listeners
+            setupEventListeners();
+            
+            // Display the first question
+            displayQuestion();
+            
+            // Update stats
+            updateStats();
+        }
+
+        // Create category buttons
+        function createCategoryButtons() {
+            // Add "All Categories" button first
+            const allButton = document.createElement('button');
+            allButton.className = 'category-btn active';
+            allButton.textContent = 'All Categories';
+            allButton.dataset.category = 'All Categories';
+            allButton.addEventListener('click', () => selectCategory('All Categories'));
+            categoryButtons.appendChild(allButton);
+            
+            // Add category buttons
+            civilEngineeringMCQs.categories.forEach(category => {
+                const button = document.createElement('button');
+                button.className = 'category-btn';
+                button.textContent = category;
+                button.dataset.category = category;
+                button.addEventListener('click', () => selectCategory(category));
+                categoryButtons.appendChild(button);
+            });
+        }
+
+        // Select a category
+        function selectCategory(category) {
+            // Update active button
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            document.querySelector(`.category-btn[data-category="${category}"]`).classList.add('active');
+            
+            // Update state
+            currentState.selectedCategory = category;
+            currentState.currentQuestionIndex = 0;
+            currentState.selectedOptions = {};
+            currentState.checkedAnswers = {};
+            
+            // Filter questions based on selected category
+            filterQuestions();
+            
+            // Display the first question
+            displayQuestion();
+            
+            // Update stats
+            updateStats();
+            
+            // Hide summary
+            questionsSummary.classList.remove('show');
+        }
+
+        // Filter questions based on category, search, and difficulty
+        function filterQuestions() {
+            let filtered = civilEngineeringMCQs.questions;
+            
+            // Filter by category
+            if (currentState.selectedCategory !== 'All Categories') {
+                filtered = filtered.filter(q => q.category === currentState.selectedCategory);
+            }
+            
+            // Filter by search text
+            const searchText = searchInput.value.toLowerCase();
+            if (searchText) {
+                filtered = filtered.filter(q => 
+                    q.question.toLowerCase().includes(searchText) ||
+                    q.category.toLowerCase().includes(searchText)
+                );
+            }
+            
+            // Filter by difficulty
+            const difficulty = difficultyFilter.value;
+            if (difficulty !== 'all') {
+                filtered = filtered.filter(q => q.difficulty === difficulty);
+            }
+            
+            // Limit number of questions
+            const count = questionCount.value;
+            if (count !== 'all') {
+                filtered = filtered.slice(0, parseInt(count));
+            }
+            
+            currentState.filteredQuestions = filtered;
+            currentState.isQuizActive = filtered.length > 0;
+            
+            // Update total questions display
+            totalQuestionsEl.textContent = filtered.length;
+            
+            // Update progress bar
+            updateProgressBar();
+        }
+
+        // Display the current question
+        function displayQuestion() {
+            const questions = currentState.filteredQuestions;
+            
+            if (questions.length === 0) {
+                questionText.textContent = "No questions found for the selected filters. Try changing your selection.";
+                optionsContainer.innerHTML = "";
+                explanationText.classList.remove('show');
+                return;
+            }
+            
+            if (currentState.currentQuestionIndex >= questions.length) {
+                currentState.currentQuestionIndex = questions.length - 1;
+            }
+            
+            const question = questions[currentState.currentQuestionIndex];
+            
+            // Update question counter
+            currentQuestionEl.textContent = currentState.currentQuestionIndex + 1;
+            
+            // Display question text
+            questionText.textContent = `${currentState.currentQuestionIndex + 1}. ${question.question}`;
+            
+            // Display options
+            optionsContainer.innerHTML = "";
+            question.options.forEach((option, index) => {
+                const li = document.createElement('li');
+                li.className = 'option';
+                li.dataset.optionIndex = index;
+                
+                // Check if this option was previously selected
+                if (currentState.selectedOptions[question.id] === index) {
+                    li.classList.add('selected');
+                }
+                
+                // Check if answer has been checked and this is correct/incorrect
+                if (currentState.checkedAnswers[question.id]) {
+                    if (index === question.correctAnswer) {
+                        li.classList.add('correct');
+                    } else if (currentState.selectedOptions[question.id] === index && index !== question.correctAnswer) {
+                        li.classList.add('incorrect');
+                    }
+                }
+                
+                li.innerHTML = `
+                    <span class="option-letter">${String.fromCharCode(65 + index)}</span>
+                    <span class="option-text">${option}</span>
+                `;
+                
+                li.addEventListener('click', () => selectOption(index, question.id));
+                optionsContainer.appendChild(li);
+            });
+            
+            // Display explanation if checked
+            if (currentState.checkedAnswers[question.id]) {
+                explanationText.textContent = question.explanation;
+                explanationText.classList.add('show');
+            } else {
+                explanationText.classList.remove('show');
+            }
+            
+            // Update button states
+            prevBtn.disabled = currentState.currentQuestionIndex === 0;
+            nextBtn.disabled = currentState.currentQuestionIndex === questions.length - 1;
+            
+            // Update progress bar
+            updateProgressBar();
+        }
+
+        // Select an option
+        function selectOption(optionIndex, questionId) {
+            // If answer already checked, don't allow changes
+            if (currentState.checkedAnswers[questionId]) return;
+            
+            // Clear previous selection for this question
+            const options = document.querySelectorAll(`#optionsContainer .option`);
+            options.forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Mark selected option
+            options[optionIndex].classList.add('selected');
+            
+            // Save selection
+            currentState.selectedOptions[questionId] = optionIndex;
+            
+            // Mark as attempted if not already
+            const question = currentState.filteredQuestions.find(q => q.id === questionId);
+            if (question && currentState.selectedOptions[questionId] !== undefined) {
+                // Update attempted count if this is a new attempt
+                if (!currentState.checkedAnswers[questionId]) {
+                    currentState.attempted++;
+                    updateStats();
+                }
+            }
+        }
+
+        // Check the answer
+        function checkAnswer() {
+            const questions = currentState.filteredQuestions;
+            if (questions.length === 0) return;
+            
+            const question = questions[currentState.currentQuestionIndex];
+            const questionId = question.id;
+            
+            // Check if an option is selected
+            if (currentState.selectedOptions[questionId] === undefined) {
+                alert("Please select an answer before checking.");
+                return;
+            }
+            
+            // If already checked, do nothing
+            if (currentState.checkedAnswers[questionId]) return;
+            
+            // Mark as checked
+            currentState.checkedAnswers[questionId] = true;
+            
+            // Check if correct
+            const isCorrect = currentState.selectedOptions[questionId] === question.correctAnswer;
+            
+            // Update scores
+            if (isCorrect) {
+                currentState.correct++;
+                currentState.score += 10;
+            } else {
+                currentState.incorrect++;
+            }
+            
+            // Update stats
+            updateStats();
+            
+            // Display explanation
+            explanationText.textContent = question.explanation;
+            explanationText.classList.add('show');
+            
+            // Update option styles to show correct/incorrect
+            const options = document.querySelectorAll(`#optionsContainer .option`);
+            options.forEach((opt, index) => {
+                if (index === question.correctAnswer) {
+                    opt.classList.add('correct');
+                } else if (index === currentState.selectedOptions[questionId] && index !== question.correctAnswer) {
+                    opt.classList.add('incorrect');
+                }
+                opt.classList.remove('selected');
+            });
+        }
+
+        // Go to next question
+        function nextQuestion() {
+            if (currentState.currentQuestionIndex < currentState.filteredQuestions.length - 1) {
+                currentState.currentQuestionIndex++;
+                displayQuestion();
+            }
+        }
+
+        // Go to previous question
+        function previousQuestion() {
+            if (currentState.currentQuestionIndex > 0) {
+                currentState.currentQuestionIndex--;
+                displayQuestion();
+            }
+        }
+
+        // Reset the quiz
+        function resetQuiz() {
+            currentState = {
+                currentQuestionIndex: 0,
+                score: 0,
+                attempted: 0,
+                correct: 0,
+                incorrect: 0,
+                selectedCategory: currentState.selectedCategory,
+                selectedOptions: {},
+                checkedAnswers: {},
+                filteredQuestions: currentState.filteredQuestions,
+                isQuizActive: currentState.filteredQuestions.length > 0
+            };
+            
+            displayQuestion();
+            updateStats();
+            
+            // Hide summary
+            questionsSummary.classList.remove('show');
+        }
+
+        // Update stats display
+        function updateStats() {
+            scoreEl.textContent = currentState.score;
+            attemptedEl.textContent = currentState.attempted;
+            correctEl.textContent = currentState.correct;
+            incorrectEl.textContent = currentState.incorrect;
+        }
+
+        // Update progress bar
+        function updateProgressBar() {
+            const questions = currentState.filteredQuestions;
+            if (questions.length === 0) {
+                progressFill.style.width = '0%';
+                return;
+            }
+            
+            const progress = ((currentState.currentQuestionIndex + 1) / questions.length) * 100;
+            progressFill.style.width = `${progress}%`;
+        }
+
+        // Show/hide question summary
+        function toggleSummary() {
+            questionsSummary.classList.toggle('show');
+            
+            if (questionsSummary.classList.contains('show')) {
+                renderSummary();
+            }
+        }
+
+        // Render question summary
+        function renderSummary() {
+            summaryList.innerHTML = "";
+            
+            currentState.filteredQuestions.forEach((question, index) => {
+                const item = document.createElement('div');
+                item.className = 'summary-item';
+                
+                // Determine status
+                let status = "unanswered";
+                let statusText = "Unanswered";
+                
+                if (currentState.checkedAnswers[question.id]) {
+                    const isCorrect = currentState.selectedOptions[question.id] === question.correctAnswer;
+                    status = isCorrect ? "correct" : "incorrect";
+                    statusText = isCorrect ? "Correct" : "Incorrect";
+                } else if (currentState.selectedOptions[question.id] !== undefined) {
+                    status = "unanswered";
+                    statusText = "Attempted";
+                }
+                
+                item.classList.add(status);
+                item.innerHTML = `
+                    <strong>Q${index + 1}</strong>: ${statusText}
+                `;
+                
+                item.addEventListener('click', () => {
+                    currentState.currentQuestionIndex = index;
+                    displayQuestion();
+                    questionsSummary.classList.remove('show');
+                });
+                
+                summaryList.appendChild(item);
+            });
+        }
+
+        // Set up event listeners
+        function setupEventListeners() {
+            // Navigation buttons
+            prevBtn.addEventListener('click', previousQuestion);
+            nextBtn.addEventListener('click', nextQuestion);
+            checkBtn.addEventListener('click', checkAnswer);
+            resetBtn.addEventListener('click', resetQuiz);
+            summaryBtn.addEventListener('click', toggleSummary);
+            
+            // Search and filter events
+            searchInput.addEventListener('input', () => {
+                filterQuestions();
+                displayQuestion();
+            });
+            
+            difficultyFilter.addEventListener('change', () => {
+                filterQuestions();
+                displayQuestion();
+            });
+            
+            questionCount.addEventListener('change', () => {
+                filterQuestions();
+                displayQuestion();
+            });
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                // Only if quiz is active
+                if (!currentState.isQuizActive) return;
+                
+                switch(e.key) {
+                    case 'ArrowLeft':
+                        if (!prevBtn.disabled) previousQuestion();
+                        break;
+                    case 'ArrowRight':
+                        if (!nextBtn.disabled) nextQuestion();
+                        break;
+                    case 'Enter':
+                        checkAnswer();
+                        break;
+                    case '1':
+                    case '2':
+                    case '3':
+                    case '4':
+                        const index = parseInt(e.key) - 1;
+                        const question = currentState.filteredQuestions[currentState.currentQuestionIndex];
+                        if (question && index < question.options.length) {
+                            selectOption(index, question.id);
+                        }
+                        break;
+                }
+            });
+        }
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
 </body>
 </html>
