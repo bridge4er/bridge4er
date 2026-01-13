@@ -1,32 +1,32 @@
 [
+  {
+    "question": "x+x is ?",
+    "options": ["4x", "6x", "2x", "x"],
+    "correct": "2x",
+    "explanation": "Basic Arithmetic"
+  }
  {
-  "S.N.": 1,
-  "Question": "Bearing capacity of Powerhouse is ?",
-  "Option A": 230,
-  "Option B": 250,
-  "Option C": 425,
-  "Option D": 350,
-  "Correct Answer": 350,
-  "Explanation": "Yeti pani audaina ?"
- },
+    "question": "What is your name?",
+    "options": ["Ram", "Shyam", "Hari", "Sita"],
+    "correct": "Ram",
+    "explanation": "Ram is God."
+  }
  {
-  "S.N.": 2,
-  "Question": "soil is --------- ?",
-  "Option A": "Incompressible",
-  "Option B": "Consolidated ",
-  "Option C": "Three phase",
-  "Option D": "Soild ",
-  "Correct Answer": "Three phase",
-  "Explanation": "Basic Rule"
- },
- {
-  "S.N.": 3,
-  "Question": "Mooram is ?",
-  "Option A": "Air",
-  "Option B": "Soil",
-  "Option C": "Water",
-  "Option D": "None",
-  "Correct Answer": "Soil",
-  "Explanation": "Basic Rule"
- }
+    "question": "What is the unit of stress?",
+    "options": ["N/m", "N/m²", "N/m³", "N"],
+    "correct": "N/m²",
+    "explanation": "Stress is force per unit area."
+  },
+  {
+    "question": "What does Young's modulus measure?",
+    "options": ["Stiffness", "Ductility", "Toughness", "Hardness"],
+    "correct": "Stiffness",
+    "explanation": "Young's modulus measures stiffness."
+  }
+  {
+    "question": "Who are you?",
+    "options": ["Sexy", "Lovely", "Tough", "Hard"],
+    "correct": "Sexy",
+    "explanation": "You are good."
+  }
 ]
